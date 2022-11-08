@@ -18,7 +18,7 @@ body {
     padding: 20px;
 }
 .card {
-    max-width: 400px;
+    max-width: 450px;
     width: 100%;
     background-color: #fff;
     border-radius: 16px;
@@ -26,7 +26,7 @@ body {
     overflow: hidden;
     color: #455963;
     box-shadow: 0 20px 80px rgb(0 0 0 / 30%);
-    padding: 15px;
+    padding: 25px;
 }
 .caption {
     font-size: 20px;
@@ -34,13 +34,115 @@ body {
 }
 .form {
     margin-top: 20px;
+    display: flex;
+    align-items: center;
 }
 ul {
-    margin: 20px 0 0 0;
+    margin: 40px 0 0 0;
     padding: 0;
 }
 ul li {
-    display: block;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
 }
+.close {
+    cursor: pointer;
+    color: #1873B7;
+    width: 10px;
+    min-width: 10px;
+    height: 10px;
+    background-image: url(close.png);
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+.input {
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid #455963;
+    flex-grow: 1;
+    outline: none;
+    font-size: 17px;
+    margin-right: 20px;
+    color: #455963;
+}
+.submit-btn[disabled] {
+    opacity: 0.5;
+    cursor: default;
+}
+.submit-btn {
+    width: 40px;
+    height: 40px;
+    background-image: url(next.png);
+    border: none;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    cursor: pointer;
+    background-color: transparent;
+}
+.checkbox-block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-grow: 1;
+    margin-right: 5px;
+}
+.checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.checkbox:checked + .check {
+    background: #1873B7;
+    border: 1px solid #1873B7;
+}
+.checkbox:checked + .check + .text:after {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #1873B7;
+}
+.check {
+    border: 1px solid #455963;
+    border-radius: 2px;
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    display: block;
+    transition: all 0.3s;
+    margin-right: 10px;
+    position: relative;
+}
+.check:after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+}
+.text {
+    font-size: 16px;
+    line-height: 19px;
+    position: relative;
+}
+::-webkit-input-placeholder {font-family: Verdana; font-size: 17px; color: #455963;}
+::-moz-placeholder {font-family: Verdana; font-size: 17px; color: #455963;}
+:-moz-placeholder {font-family: Verdana; font-size: 17px; color: #455963;}
+:-ms-input-placeholder {font-family: Verdana; font-size: 17px; color: #455963;}
+:focus::-webkit-input-placeholder {color: transparent}
+:focus::-moz-placeholder          {color: transparent}
+:focus:-moz-placeholder           {color: transparent}
+:focus:-ms-input-placeholder      {color: transparent}
