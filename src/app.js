@@ -83,6 +83,23 @@ function deleteItem(id) {
         })
 }
 
+function editItem(id, listItem) {
+    fetch(`https://todo-list-62506-default-rtdb.firebaseio.com/listitem/${id}/text.json`, {
+        method: 'PUT',
+        body: JSON.stringify(listItem),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(response => {
+            fetchListItems()
+        })
+        .catch(error => {
+            console.log({error})
+        })
+}
+
 function fetchListItems() {
     fetch(`https://todo-list-62506-default-rtdb.firebaseio.com/listitem.json`)
         .then(response => response.json())
@@ -116,16 +133,31 @@ function getListItems(data) {
                     <span class="check"></span>
                     <span class="text">${data[key].text}</span>
                 </label>
+                <span class="edit-block"></span>
+                <span class="edit" data-id="${key}"></span>
                 <span class="close" data-id="${key}"></span>`;
         listTasks.append(newLi);
     })
     authorizationModal.classList.remove('active')
+
 }
 
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains("close")) {
         elementRemoved = event.target.getAttribute('data-id')
         deleteModal.classList.add('active')
+    }
+});
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains("edit")) {
+        //editItem(event.target.getAttribute('data-id'), 'куку')
+        let editBlock = event.target.closest('li').querySelector('.edit-block')
+        let inputText = event.target.closest('li').querySelector('.text').innerText
+        editBlock.innerHTML = `
+        <input type="text" class="input-edit" value="${inputText}">
+        <span class="save"></span>`
+        event.target.closest('li').querySelector('.text').style.display = 'none'
     }
 });
 

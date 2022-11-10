@@ -47,6 +47,34 @@ ul li {
     display: flex;
     align-items: center;
 }
+.edit-block {
+    display: flex;
+    align-items: center;
+}
+.save {
+    cursor: pointer;
+    width: 15px;
+    min-width: 15px;
+    height: 15px;
+    background-image: url(save.png);
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    display: inline-block;
+    margin-left: 10px;
+}
+.edit {
+    cursor: pointer;
+    width: 10px;
+    min-width: 10px;
+    height: 10px;
+    background-image: url(edit.png);
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    margin-left: auto;
+    margin-right: 15px;
+}
 .close {
     cursor: pointer;
     color: #1873B7;
@@ -68,6 +96,14 @@ ul li {
     margin-right: 20px;
     color: #455963;
 }
+.input-edit {
+    height: 20px;
+    width: 150px;
+    color: #455963;
+    border: 1px solid #455963;
+    outline: none;
+    font-size: 15px;
+}
 .submit-btn[disabled] {
     opacity: 0.5;
     cursor: default;
@@ -88,8 +124,6 @@ ul li {
     display: flex;
     align-items: center;
     cursor: pointer;
-    flex-grow: 1;
-    margin-right: 5px;
 }
 .checkbox {
     opacity: 0;
