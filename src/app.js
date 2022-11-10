@@ -151,13 +151,19 @@ document.addEventListener('click', function(event) {
 
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains("edit")) {
-        //editItem(event.target.getAttribute('data-id'), 'куку')
         let editBlock = event.target.closest('li').querySelector('.edit-block')
         let inputText = event.target.closest('li').querySelector('.text').innerText
         editBlock.innerHTML = `
         <input type="text" class="input-edit" value="${inputText}">
         <span class="save"></span>`
         event.target.closest('li').querySelector('.text').style.display = 'none'
+    }
+});
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains("save")) {
+        let inputValue = event.target.closest('li').querySelector('.input-edit').value
+        editItem(event.target.closest('li').querySelector('.checkbox').getAttribute('data-id'), inputValue)
     }
 });
 
