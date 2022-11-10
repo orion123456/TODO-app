@@ -6,7 +6,12 @@ const submitBtn = document.querySelector('.submit-btn')
 const listTasks = document.querySelector('.list-tasks')
 const modalForm = document.querySelector('.modal-form')
 const error = document.querySelector('.error')
-const overlay = document.querySelector('.overlay')
+const authorizationModal = document.querySelector('.authorization-modal')
+const deleteModal = document.querySelector('.delete-modal')
+const deleteBtnYes = document.querySelector('.delete-btn-yes')
+const deleteBtnNo = document.querySelector('.delete-btn-no')
+
+let elementRemoved
 
 form.addEventListener('submit', submitFormHandler)
 input.addEventListener('input', () => {
@@ -114,12 +119,13 @@ function getListItems(data) {
                 <span class="close" data-id="${key}"></span>`;
         listTasks.append(newLi);
     })
-    overlay.classList.remove('active')
+    authorizationModal.classList.remove('active')
 }
 
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains("close")) {
-        deleteItem(event.target.getAttribute('data-id'))
+        elementRemoved = event.target.getAttribute('data-id')
+        deleteModal.classList.add('active')
     }
 });
 
@@ -128,6 +134,15 @@ document.addEventListener('change', function(event) {
         done(event.target.getAttribute('data-id'), event.target.checked)
     }
 });
+
+deleteBtnNo.addEventListener('click', function () {
+    deleteModal.classList.remove('active')
+})
+
+deleteBtnYes.addEventListener('click', function () {
+    deleteItem(elementRemoved)
+    deleteModal.classList.remove('active')
+})
 
 modalForm.addEventListener('submit', submitFormHandlerModal)
 function submitFormHandlerModal(event) {
