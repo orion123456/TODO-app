@@ -4,6 +4,9 @@ const form = document.querySelector('.form')
 const input = document.querySelector('.input')
 const submitBtn = document.querySelector('.submit-btn')
 const listTasks = document.querySelector('.list-tasks')
+const modalForm = document.querySelector('.modal-form')
+const error = document.querySelector('.error')
+const overlay = document.querySelector('.overlay')
 
 form.addEventListener('submit', submitFormHandler)
 input.addEventListener('input', () => {
@@ -76,24 +79,42 @@ function deleteItem(id) {
 }
 
 function fetchListItems() {
-    fetch('https://todo-list-62506-default-rtdb.firebaseio.com/listitem.json')
+    fetch(`https://todo-list-62506-default-rtdb.firebaseio.com/listitem.json`)
         .then(response => response.json())
         .then(data => {
-            listTasks.innerHTML = ''
-            Object.keys(data).forEach((key) => {
-                let newLi = document.createElement("li");
-                let checked = `<input type="checkbox" class="checkbox" data-id="${key}" checked>`
-                let notChecked = `<input type="checkbox" class="checkbox" data-id="${key}">`
-                newLi.innerHTML = `
+            getListItems(data)
+        })
+}
+
+function fetchListItemsToken(token) {
+    if (token) {
+        fetch(`https://todo-list-62506-default-rtdb.firebaseio.com/listitem.json?auth=${token}`)
+            .then(response => response.json())
+            .then(data => {
+                getListItems(data)
+            })
+    } else {
+        error.innerHTML = 'Не правильный Email или пароль'
+    }
+}
+
+function getListItems(data) {
+    listTasks.innerHTML = ''
+    Object.keys(data).forEach((key) => {
+        let newLi = document.createElement("li");
+        newLi.innerHTML = `
                  <label class="checkbox-block">
-                    ${data[key].done ? checked : notChecked}
+                    <input type="checkbox" 
+                    class="checkbox" 
+                    data-id="${key}" 
+                    ${data[key].done ? 'checked' : ''}>
                     <span class="check"></span>
                     <span class="text">${data[key].text}</span>
                 </label>
                 <span class="close" data-id="${key}"></span>`;
-                listTasks.append(newLi);
-            })
-        })
+        listTasks.append(newLi);
+    })
+    overlay.classList.remove('active')
 }
 
 document.addEventListener('click', function(event) {
@@ -108,4 +129,30 @@ document.addEventListener('change', function(event) {
     }
 });
 
-fetchListItems()
+modalForm.addEventListener('submit', submitFormHandlerModal)
+function submitFormHandlerModal(event) {
+    event.preventDefault()
+    const email = document.querySelector('.email').value
+    const password = document.querySelector('.password').value
+    authWithEmailAndPassword(email, password)
+        .then(token => fetchListItemsToken(token))
+        .catch(error => console.log(error))
+}
+
+function authWithEmailAndPassword(email, password) {
+    const apiKey = "AIzaSyDFoQCvbHY-_joFzkFhZ4L2R_Xb6usp2dU"
+    return fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`, {
+        method: 'POST',
+        body: JSON.stringify({
+            email,
+            password,
+            returnSecureToken: true
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => data.idToken)
+        .catch(error => console.log(error))
+}

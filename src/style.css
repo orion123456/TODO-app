@@ -146,3 +146,59 @@ ul li {
 :focus::-moz-placeholder          {color: transparent}
 :focus:-moz-placeholder           {color: transparent}
 :focus:-ms-input-placeholder      {color: transparent}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.overlay.active {
+    display: flex;
+}
+.modal {
+    max-width: 450px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 80px rgb(0 0 0 / 30%);
+    padding: 25px;
+    position: relative;
+}
+.modal .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.modal-input {
+    display: block;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid #455963;
+    outline: none;
+    font-size: 17px;
+    color: #455963;
+    width: 100%;
+    margin-top: 20px;
+}
+.modal-btn {
+    background-color: #1873B7;
+    border: none;
+    margin-top: 20px;
+    border-radius: 3px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #fff;
+    padding: 10px 25px;
+    cursor: pointer;
+}
+.error {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: red;
+}
